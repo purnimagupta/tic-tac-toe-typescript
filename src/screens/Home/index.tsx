@@ -22,7 +22,7 @@ function Home(props: Props) {
             <Input 
                 onEnter={props.onEnter}
                 min={3}
-                max={10}
+                max={12}
                 title="Choose Board Size in Number. For ex: 3"
                 />   
         </StyledCard>

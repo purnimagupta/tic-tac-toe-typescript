@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Input as AntInput } from 'antd';
+import { validateInput } from './utils/validate';
+import styled from 'styled-components';
 
 interface StateProps {
     value: number;
@@ -16,22 +18,24 @@ interface Props {
 function Input(props: Props) {
     const [value, setValue] = useState<StateProps["value"]>(3);
     const [error, setError] = useState<StateProps["error"]>('')
-    const { title, onEnter } = props;
+    const { title, onEnter, min, max } = props;
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        if(value) {
-            setValue(parseInt(value));
-            // let's clear the error 
+        const value = e.target.value.trim();
+        const { isValidBoard, error } = validateInput(min, max, value)
+        if(isValidBoard) {
+            setValue(parseInt(value))
             setError('')
         } else {
-            setError('Enter valid board value')
+            setError(error)
         }
     }
 
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if(e.key === 'Enter') {
-            onEnter(value)
+            if(!error) {
+                onEnter(value)
+            }
         }
     }
     return (
@@ -42,12 +46,20 @@ function Input(props: Props) {
                 defaultValue={value}
                 onKeyPress={handleKeyPress}
                 placeholder={title}
+                min={props.min}
+                max={props.max}
             />
-            { error ? <div>{error}</div> : null }
+            { error ? <StyledError>{error}</StyledError> : null }
         </>
     )
 }
 
 export default Input;
+
+const StyledError = styled.div`
+    color: red;
+    padding: 20px;
+    font-size: 17px;
+`
 
 

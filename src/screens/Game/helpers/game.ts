@@ -1,6 +1,4 @@
 export function generateAllWinningCombination(boardSize: number) {
-    // Let's first generate rows combinations which is 
-    // [0, 1,2], [3, 4, 5], [6, 7, 8]
     let winningCombinations: Array<Array<number>> = [];
 
     function generateRowMoves(boardSize: number) {
@@ -27,9 +25,6 @@ export function generateAllWinningCombination(boardSize: number) {
     }
 
     function generateLeftDiagonal(boardSize: number) {
-        /* 
-            [0, 4, 8] 0+4(boardSize+1) = 4, 4+4 = 8, 8<boardSize*boardSize
-        */
         let terminateloop = boardSize*boardSize;
         let subArray = [];
         for(let i=0; i<terminateloop; i += boardSize+1) {
@@ -38,11 +33,6 @@ export function generateAllWinningCombination(boardSize: number) {
         winningCombinations.push(subArray);
     }
     function generateRightDiagonal(boardSize: number) {
-        /* 
-         [2, 4, 6] 2, 2+2 = 4, 4+2 = 6
-            3 * 2 = 6
-            3 
-        */
         let subArray = [];
         let terminateloop = (boardSize-1)*boardSize
         for(let i=boardSize-1; i<=terminateloop; i += boardSize-1) {
