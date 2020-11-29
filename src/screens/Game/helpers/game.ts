@@ -47,19 +47,19 @@ export function generateAllWinningCombination(boardSize: number) {
     return winningCombinations;
 }
 
-function getWinningMoves(cells: Array<string | null>, winningCombinations: Array<Array<number>>){
+export function getWinningMoves(cells: Array<string | null>, winningCombinations: Array<Array<number>>){
     return winningCombinations.filter((winningCombination) => {
         return winningCombination.reduce((acc, val) => {
           return cells[val] === acc ? acc : null
         }, cells[winningCombination[0]]) 
     });
+    
 }
 export function isWon(cells: Array<string | null>, winningCombinations:Array<Array<number>>){
     const win = getWinningMoves(cells, winningCombinations);
+    console.log("win is right now", win)
     return win.length ? { isWon: true, moves: win[0]} : { isWon: false, moves: []}
 }
-
-   
 
 export function isDraw(cells: Array<string | null>){
     if(!cells.includes(null)){
@@ -67,3 +67,30 @@ export function isDraw(cells: Array<string | null>){
     }
     return false
 }
+
+// updateGameStatus = (cells, winningCombinations) => {
+//     for(let i=0; i<winningCombinations.length; i++) { 
+  
+      
+//       winningCombination = winningCombinations[i];
+//       if (!winningCombination.includes(null)) {
+  
+//         let rowCount = winningCombination.length;
+//         let playerMoves = 0;
+//         let player = cells[winningCombination[0]]; //X or O
+//         for(let j=0; j<winningCombination.length; j++ ) { // [2, 5, 8]
+  
+//           if(cells[winningCombination[j]] === player) {    
+//             playerMoves += 1;
+//           }
+//         }
+  
+//         if (playerMoves === rowCount) {
+//           return winningCombination;
+//         }
+//       }
+//     }  
+  
+//     return [];
+      
+//   }
